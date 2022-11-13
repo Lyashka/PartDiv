@@ -36,7 +36,7 @@
   <div class="sidedrawer">
     <ul style="display:inline;">
       <li>
-        <button class="bt">Соглашения</иг>
+        <button class="bt">Соглашения</button>
       </li>
       <li>
         <button class="bt">Совместные структуры</button>
