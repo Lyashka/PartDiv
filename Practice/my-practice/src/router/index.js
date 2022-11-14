@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Auth from '@/pages/Auth'
 import Reg from '@/pages/Reg'
+import MainMenu from '@/pages/MainMenu'
+import ProfileDivision from '@/pages/ProfileDivision'
+import ProfilePartner from '@/pages/ProfilePartner'
 
 const routes = [
   {
@@ -11,6 +14,18 @@ const routes = [
   {
     path: '/registration',
     component: Reg
+  },
+  {
+    path: '/menu',
+    component: MainMenu
+  },
+  {
+    path: '/profileDivision',
+    component: ProfileDivision
+  },
+  {
+    path: '/profilePartner',
+    component: ProfilePartner
   }
 ]
 

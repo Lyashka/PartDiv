@@ -6,7 +6,7 @@
           <div class="header">
             <div class="row">
               <div class="col-auto d-flex flex-row">
-                <div style="padding-top: 20px;">
+                <div style="padding-bottom: 20px;">
                   <a href="/">
                     <div>
                       <svg  x="0px" y="0px"
@@ -88,7 +88,7 @@
                 </div>
                 <div class="col-auto ml-auto col-xs-12">
                   <div class="form-group">
-                    <button data-eid="login" type="submit" class="btn btn-lg btn-primary btn-login">Войти</button>
+                    <button data-eid="login" type="submit" class="btn btn-lg btn-primary btn-login" @click="$router.push('/menu')">Войти</button>
                   </div>
                 </div>
               </div>
@@ -99,14 +99,14 @@
     </div>
     <div class="row ">
       <div class="col">
-                        <span class="text-right">
-                            <a href="mailto:webmaster@etu.ru">webmaster@etu.ru</a>
-                        </span>
+        <span class="text-right">
+          <a href="mailto:webmaster@etu.ru">webmaster@etu.ru</a>
+        </span>
       </div>
       <div class="col-auto">
-                        <span class="text-right">
-                            <a target="_blank" href="https://etu.ru">СПбГЭТУ «ЛЭТИ»</a>
-                        </span>
+        <span class="text-right">
+          <a target="_blank" href="https://etu.ru">СПбГЭТУ «ЛЭТИ»</a>
+        </span>
       </div>
     </div>
   </div>
@@ -116,7 +116,7 @@
 
 </script>
 
-<style>
+<style scoped>
 
 *, :after, :before {
   box-sizing: border-box;
@@ -145,6 +145,12 @@ a:hover {
 body{
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
   line-height: 1.5;
+  /* background: #f5f5f5; */
+  color: #335177!important;
+  font-size: 14px!important;
+  margin: 0;
+  height: 100vh;
+  overflow-x: hidden!important;
 }
 
 div {
@@ -159,23 +165,15 @@ div {
   display: flex!important;
 }
 
-body {
-  background: #f5f5f5;
-  color: #335177!important;
-  font-size: 14px!important;
-  margin: 0;
-  overflow-x: hidden!important;
-}
-
 .container{
   margin-left: auto;
   margin-right: auto;
   padding-left: 7.5px;
   padding-right: 7.5px;
   width: 100%;
-  margin-bottom: auto!important;
-  margin-top: auto!important;
+  margin-top: 240px;
   max-width: 600px;
+  height: inherit;
 }
 
 
