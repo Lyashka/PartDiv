@@ -214,7 +214,6 @@ header,
 .tabla {
   border-collapse: collapse;
   box-sizing: border-box;
-
 }
 
 .container {

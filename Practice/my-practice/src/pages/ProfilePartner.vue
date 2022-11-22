@@ -41,13 +41,15 @@
     <div class="content wdth">
       <div class="cont1">
         <div class="cont1_itm">Российская Буровая Компания</div>
-        <div class="cont1_itm short">"OOO РБК"</div>
+        <input class="cont1_itm short input_hide" v-model="short_name" onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';">
       </div>
       <div style="display: flex; flex-direction: row;">Тип партнера:
         <div style="margin-left: 10px;">Половой</div>
+        <button class="change">Изменить</button>
       </div>
       <div style="display: flex; flex-direction: row;">Направления разработок:
         <div style="margin-left: 10px;">Игры, Боты, и т.д.</div>
+        <button class="change">Изменить</button>
       </div>
     </div>
 
@@ -56,11 +58,12 @@
       <div class="flex_rovv wdth">
         <div class="cont2" style="padding-right: 50px;">
           <div style="font-size: 20px;">Почта</div>
-          <input type="email" placeholder="Mail" class="input">
+          <input type="email" placeholder="Mail" class="input" v-model="mail">
         </div>
         <div class="cont2">
           <div style="font-size: 20px;">Телефон</div>
-          <input type="text" placeholder="" class="input"></div>
+          <input type="text" placeholder="" class="input" v-model="phone" >
+        </div>
       </div>
     </div>
 
@@ -68,12 +71,12 @@
       <div class="flex_rovv wdth">
         <div class="cont2">
           <div style="font-size: 20px;">Адрес</div>
-          <input type="text" placeholder="" class="input">
+          <input type="text" placeholder="" class="input" v-model="address">
         </div>
       </div>
       <div class="cont2" style="margin-top: 15px;">
         <div style="font-size: 20px;">Сайт</div>
-        <input type="text" placeholder="" class="input">
+        <input type="text" placeholder="" class="input" v-model="website">
       </div>
     </div>
 
@@ -81,23 +84,55 @@
       <div class="flex_rovv wdth">
         <div class="cont2" style="font-size: 20px; display: flex; flex-direction: row; align-items: center;">
           Руководитель организации:
-          <input type="text" placeholder="" class="input" style="margin-left: 10px; width: 75%;">
+          <input type="text" placeholder="" class="input" style="margin-left: 10px; width: 75%;" v-model="boss">
         </div>
       </div>
       <div class="cont2" style="margin-top: 15px;">
         <div style="font-size: 20px;">Контактные лица</div>
-        <textarea class="txtari" name="" id="" cols="30" rows="10" style="resize: none;"></textarea>
+        <textarea class="txtari" name="" id="" cols="30" rows="10" style="resize: none;" v-model="contacts"></textarea>
       </div>
     </div>
 
     <div class="save">
-      <button class="save_btn">Сохранить</button>
+      <button class="save_btn" @click="persist">Сохранить</button>
     </div>
   </div>
 </template>
 
 <script>
-
+export default{
+  data() {
+  return{
+    short_name:'',
+    mail: '',
+    phone: 0,
+    address: '',
+    website: '',
+    boss:'',
+    contacts:'',
+  }
+  },
+  mounted() {
+    if (localStorage.mail) {this.mail = localStorage.mail;}
+    if (localStorage.phone) {this.phone = localStorage.phone;}
+    if (localStorage.short_name) {this.short_name = localStorage.short_name;}
+    if (localStorage.address) {this.address = localStorage.address;}
+    if (localStorage.website) {this.website = localStorage.website;}
+    if (localStorage.boss) {this.boss = localStorage.boss;}
+    if (localStorage.contacts) {this.contacts = localStorage.contacts;}
+  },
+  methods: {
+    persist() {
+      localStorage.mail = this.mail;
+      localStorage.short_name = this.short_name;
+      localStorage.phone = this.phone;
+      localStorage.address = this.address;
+      localStorage.website = this.website;
+      localStorage.boss = this.boss;
+      localStorage.contacts = this.contacts;
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -194,6 +229,40 @@ ul{
 .flex_rovv{
   display: flex;
   flex-direction: row;
+}
+
+.change{
+  margin-left: 20px;
+  border: none;
+  background: inherit;
+  color: #2064da;
+
+}
+
+.change:hover{
+  text-decoration-line:underline;
+}
+
+.input_hide{
+  border: none;
+  background: inherit;
+  font-size: 22px;
+  height: 40px;
+  min-width: 100px;
+}
+
+.input_hide:focus{
+  display: flex;
+  font-size: 22px;
+  border-radius: 10px;
+  border:1px rgba(0, 0, 0, 0.103) solid;
+  padding: 10px;
+  height: 40px;
+  background-color:rgba(255, 255, 255, 0.801);
+  box-shadow:0 0 0 2.5px #0368e448;
+  border:1px #004497 solid;
+  transition: all 0.2s linear;
+  animation-direction: normal, reverse;
 }
 
 .input{

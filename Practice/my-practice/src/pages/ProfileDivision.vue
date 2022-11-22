@@ -39,10 +39,17 @@
   <div class="content wdth">
     <div class="cont1">
       <div class="cont1_itm">Информационнные системмы и технологии</div>
-      <div class="cont1_itm short">"ИСИТ"</div>
+<!--      ИССИТ-->
+      <input class="cont1_itm short input_hide" v-model="short_name" onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';">
     </div>
-    <div style="display: flex; flex-direction: row;">Факультет: <div style="margin-left: 10px;">Компьютерные технологии информатики</div></div>
-    <div style="display: flex; flex-direction: row;">Направления разработок: <div style="margin-left: 10px;">Игры, Боты, и т.д.</div></div>
+    <div style="display: flex; flex-direction: row;">Факультет:
+      <div style="margin-left: 10px;">Компьютерные технологии информатики</div>
+      <button class="change">Изменить</button>
+    </div>
+    <div style="display: flex; flex-direction: row;">Направления разработок:
+      <div style="margin-left: 10px;">Игры, Боты, и т.д.</div>
+      <button class="change">Изменить</button>
+    </div>
   </div>
 
   <div class="content wdth">
@@ -50,25 +57,25 @@
     <div class="flex_rovv wdth">
       <div class="cont2" style="padding-right: 50px;">
         <div style="font-size: 20px;">Почта зав. кафедрой</div>
-        <input type="email" placeholder="Mail" class="input">
+        <input type="email" placeholder="Mail" class="input" v-model="mail">
       </div>
       <div class="cont2">
         <div  style="font-size: 20px;">Телефон зав. кафедрой</div>
-        <input type="text" placeholder="" class="input"></div>
+        <input type="text" placeholder="" class="input" v-model="phone"></div>
     </div>
   </div>
 
   <div class="content wdth">
     <div class="cont2">
       <div  style="font-size: 20px;">Сайт</div>
-      <input type="text" placeholder="" class="input">
+      <input type="text" placeholder="" class="input" v-model="website">
     </div>
   </div>
 
   <div class="content wdth">
     <div class="flex_rovv wdth">
       <div class="cont2" style="font-size: 20px; display: flex; flex-direction: row; align-items: center; width: 100%;">ФИО зав. кафедрой:
-        <input type="text" placeholder="" class="input" style="margin-left: 10px; width: 81.4%;">
+        <input type="text" placeholder="" class="input" style="margin-left: 10px; width: 81.4%;" v-model="boss">
       </div>
     </div>
   </div>
@@ -78,7 +85,39 @@
 </template>
 
 <script>
-
+export default{
+  data() {
+    return{
+      short_name:'',
+      mail: '',
+      phone: 0,
+      address: '',
+      website: '',
+      boss:'',
+      contacts:'',
+    }
+  },
+  mounted() {
+    if (localStorage.mail) {this.mail = localStorage.mail;}
+    if (localStorage.phone) {this.phone = localStorage.phone;}
+    if (localStorage.short_name) {this.short_name = localStorage.short_name;}
+    if (localStorage.address) {this.address = localStorage.address;}
+    if (localStorage.website) {this.website = localStorage.website;}
+    if (localStorage.boss) {this.boss = localStorage.boss;}
+    if (localStorage.contacts) {this.contacts = localStorage.contacts;}
+  },
+  methods: {
+    persist() {
+      localStorage.mail = this.mail;
+      localStorage.short_name = this.short_name;
+      localStorage.phone = this.phone;
+      localStorage.address = this.address;
+      localStorage.website = this.website;
+      localStorage.boss = this.boss;
+      localStorage.contacts = this.contacts;
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -175,6 +214,40 @@ ul{
 .flex_rovv{
   display: flex;
   flex-direction: row;
+}
+
+.change{
+  margin-left: 20px;
+  border: none;
+  background: inherit;
+  color: #2064da;
+
+}
+
+.change:hover{
+  text-decoration-line:underline;
+}
+
+.input_hide{
+  border: none;
+  background: inherit;
+  font-size: 22px;
+  height: 40px;
+  min-width: 100px;
+}
+
+.input_hide:focus{
+  display: flex;
+  font-size: 22px;
+  border-radius: 10px;
+  border:1px rgba(0, 0, 0, 0.103) solid;
+  padding: 10px;
+  height: 40px;
+  background-color:rgba(255, 255, 255, 0.801);
+  box-shadow:0 0 0 2.5px #0368e448;
+  border:1px #004497 solid;
+  transition: all 0.2s linear;
+  animation-direction: normal, reverse;
 }
 
 .input{
