@@ -11,9 +11,6 @@
                     <div>
                       <svg  x="0px" y="0px"
                            viewBox="0 0 69.8 70" style="enable-background:new 0 0 69.8 70; fill:#023370;" class="head-image" xml:space="preserve">
-<!--                        <style type="text/css">-->
-
-<!--                        </style>-->
                         <path class="st0" d="M41.1,38.1c0.1,0.9,0.1,2,0.1,4.6c0,2.9,0,4-0.1,5h2.1c-0.1-1-0.1-2.1-0.1-5c0-2.7,0-3.7,0.1-4.6H41.1
                            L41.1,38.1z"/>
                         <path class="st0" d="M45.1,45.1c0,1.7,1.3,2.7,3.5,2.7c2.3,0,3.6-1,3.6-2.8c0-1.2-0.7-2-1.9-2.4c1-0.4,1.6-1.1,1.6-2.2
@@ -47,15 +44,33 @@
                 </div>
               </div>
             </div>
-            <h2>Вход</h2>
-
+            <h2 style="margin-bottom: 10px">Вход</h2>
+            <ul class="nav nav-pills" id="registrationTabs" role="tablist" style="margin-bottom: 15px;">
+              <li class="nav-item " role="presentation">
+                <a
+                    class="nav-link" :class="{active: divisionActive}"
+                    id="students-tab" data-toggle="tab"
+                    href="#students" role="tab"
+                    aria-controls="students" aria-selected="true"
+                    aria-expanded="true" @click="openDivisionWindow">Подразделение
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" :class="{active: partnerActive}"
+                   id="workers-tab" data-toggle="tab"
+                   href="#workers" role="tab"
+                   aria-controls="workers" aria-selected="false"
+                   aria-expanded="false" @click="openPartnerWindow">Партнерам
+                </a>
+              </li>
+            </ul>
             <form class="form-horizontal" role="form" method="POST" action="https://lk.etu.ru/login">
               <input type="hidden" name="_token" value="yptV0EEsjxYk53l3GAI25gWmZ9DCJ2KLDnWKIhHS">
 
               <div class="row">
                 <div class="col-md-12 col-xs-12">
                   <div class="form-group">
-                    <input type="email" name="email" class="form-control form-control-lg" value="" required autofocus placeholder="Электронная почта">
+                    <input type="email" name="email" class="form-control " value="" required autofocus placeholder="Электронная почта">
                     <a href="/forgot_login">Забыли логин?</a>
                   </div>
                 </div>
@@ -64,7 +79,7 @@
               <div class="row">
                 <div class="col-md-12 col-xs-12">
                   <div class="form-group">
-                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Пароль">
+                    <input type="password" name="password" class="form-control " placeholder="Пароль">
                     <a href="https://lk.etu.ru/password/reset">Восстановление пароля</a>
                   </div>
                 </div>
@@ -83,12 +98,17 @@
               <div class="row">
                 <div class="col-auto col-xs-12">
                   <div class="form-group">
-                    <a @click="$router.push('/registration')" class="btn btn-lg btn-outline-primary btn-login">Регистрация</a>
+                    <a @click="$router.push('/registration')" class="btn">Регистрация</a>
                   </div>
                 </div>
                 <div class="col-auto ml-auto col-xs-12">
                   <div class="form-group">
-                    <button data-eid="login" type="submit" class="btn btn-lg btn-primary btn-login" @click="$router.push('/menu')">Войти</button>
+                    <button
+                        data-eid="login" type="submit"
+                        class="btn enter"
+                        @click="$router.push('/menu')"
+                    >Войти
+                    </button>
                   </div>
                 </div>
               </div>
@@ -113,7 +133,24 @@
 </template>
 
 <script>
-
+export default {
+  data(){
+    return{
+      partnerActive: false,
+      divisionActive: true
+    }
+  },
+  methods:{
+    openPartnerWindow(){
+      this.partnerActive = true
+      this.divisionActive = false
+    },
+    openDivisionWindow(){
+      this.partnerActive = false
+      this.divisionActive = true
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -194,7 +231,31 @@ div {
 .row{
   display: flex;
   flex-wrap: wrap;
+}
 
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: #023370;
+  color: #fff;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.nav-link:hover{
+  text-decoration: none;
+  transition: 0.15s linear;
+  animation-direction: normal, reverse;
 }
 
 .no-gutters{
@@ -227,6 +288,7 @@ div {
 .form-control{
   border: 1px solid #ced4da;
   width: 100%;
+  margin: 0;
   font-weight: 400;
   border-radius: 20px;
   padding: 10px;
@@ -256,6 +318,17 @@ div {
   text-align: center;
   user-select: none;
   vertical-align: middle;
+}
+
+.btn:hover{
+  background-color: #03244d;
+  color: white;
+  text-decoration: none;
+  transition: 0.1s linear;
+  animation-direction: normal, reverse;
+}
+.enter{
+  background-color: #003980; color: white;
 }
 
 .ml-auto{

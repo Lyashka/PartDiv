@@ -297,6 +297,7 @@ body {
   border: 1px solid #ced4da;
   width: 100%;
   font-weight: 400;
+  margin: 0;
   border-radius: 20px;
   padding: 10px;
   font-size: 1rem;
@@ -325,6 +326,14 @@ body {
   text-align: center;
   user-select: none;
   vertical-align: middle;
+}
+
+.btn:hover{
+  background-color: #03244d;
+  color: white;
+  text-decoration: none;
+  transition: 0.15s linear;
+  animation-direction: normal, reverse;
 }
 
 .ml-auto{
@@ -365,11 +374,12 @@ body {
   display: block;
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
-
 }
 
 .nav-link:hover{
   text-decoration: none;
+  transition: 0.15s linear;
+  animation-direction: normal, reverse;
 }
 
 .head-image {
