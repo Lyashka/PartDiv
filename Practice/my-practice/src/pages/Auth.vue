@@ -64,13 +64,13 @@
                 </a>
               </li>
             </ul>
-            <form class="form-horizontal" role="form" method="POST" action="https://lk.etu.ru/login">
+            <form class="form-horizontal">
               <input type="hidden" name="_token" value="yptV0EEsjxYk53l3GAI25gWmZ9DCJ2KLDnWKIhHS">
 
               <div class="row">
                 <div class="col-md-12 col-xs-12">
                   <div class="form-group">
-                    <input type="email" name="email" class="form-control " value="" required autofocus placeholder="Электронная почта">
+                    <input type="email" name="email" class="form-control "  required autofocus placeholder="Электронная почта" v-model="emailValueDivison">
                     <a href="/forgot_login">Забыли логин?</a>
                   </div>
                 </div>
@@ -79,7 +79,7 @@
               <div class="row">
                 <div class="col-md-12 col-xs-12">
                   <div class="form-group">
-                    <input type="password" name="password" class="form-control " placeholder="Пароль">
+                    <input type="password" name="password" class="form-control " placeholder="Пароль" v-model="passValueDivison">
                     <a href="https://lk.etu.ru/password/reset">Восстановление пароля</a>
                   </div>
                 </div>
@@ -106,7 +106,15 @@
                     <button
                         data-eid="login" type="submit"
                         class="btn enter"
-                        @click="$router.push('/menu')"
+                        :class="{hidden: activeHiddenLogInDivision}"
+                        @click="requestDivision"
+                    >Войти
+                    </button>
+                    <button
+                        data-eid="login" type="submit"
+                        class="btn enter"
+                        :class="{hidden: activeHiddenLogInPartner}"
+                        @click="requestPartner"
                     >Войти
                     </button>
                   </div>
@@ -133,22 +141,68 @@
 </template>
 
 <script>
+import router from "@/router";
+import axios from 'axios'
 export default {
   data(){
     return{
+      activeHiddenLogInDivision: false,
+      activeHiddenLogInPartner: true,
+
+      emailValueDivison: '',
+      passValueDivison: '',
+      emailValue: '',
+      passValue: '',
       partnerActive: false,
-      divisionActive: true
+      divisionActive: true,
     }
   },
-  methods:{
+  methods: {
     openPartnerWindow(){
       this.partnerActive = true
       this.divisionActive = false
+      this.activeHiddenLogInDivision = true
+      this.activeHiddenLogInPartner = false
     },
     openDivisionWindow(){
       this.partnerActive = false
       this.divisionActive = true
-    }
+      this.activeHiddenLogInDivision = false
+      this.activeHiddenLogInPartner = true
+    },
+
+    requestDivision() {
+      axios.get('http://93.100.110.70:8080/university/login',{
+        params: {
+          login: `${this.emailValueDivison}`,
+          password: `${this.passValueDivison}`,
+        }
+      }).then(res => {
+        console.log(res)
+          if(res.status === 200) {
+            router.push('/menu')
+            localStorage.setItem('profileNavigation', 'Division')
+          }
+      })
+    },
+
+    requestPartner() {
+      axios.get('http://93.100.110.70:8080/partners/login',{
+        params: {
+          login: `${this.emailValueDivison}`,
+          password: `${this.passValueDivison}`,
+        }
+      }).then(res => {
+        console.log(res)
+        if(res.status === 200) {
+          router.push('/menu')
+          localStorage.setItem('profileNavigation', 'Partner')
+        }
+      })
+    },
+  },
+  mounted() {
+
   }
 }
 </script>

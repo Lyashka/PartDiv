@@ -53,38 +53,33 @@
                 </li>
               </ul>
               <div class="tab-content">
+
                 <!-- ФОРМА ДЛЯ ПОДРАЗДЕЛЕНИЯ -->
                 <div class="tab-pane active" id="students" role="tabpanel" aria-labelledby="students-tab" v-show="visibleDivision">
                   <form>
-
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <input type="email" name="email" class="form-control" value="" required="" autofocus="" placeholder="E-MAIL зав. кафедры *">
+                          <input type="email" name="email" class="form-control"  required="" autofocus="" placeholder="E-MAIL зав. кафедры *" v-model="emailDivision">
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
 
-                          <input type="text" class="form-control" placeholder="Факультет *">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder="ФИО зав. кафедры *" inputmode="text">
+                          <input type="text" class="form-control" placeholder="Факультет *" v-model="nameDivision">
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="text" name="rf_mobile" value="" data-inputmask="'mask': '+7-999-999-99-99'" class="form-control" placeholder="Телефон зав. кафедры" inputmode="text">
+                          <input type="password" name="password" autocomplete="new-password" required="" class="form-control" placeholder="Придумайте пароль *" v-model="passDivision">
                         </div>
                       </div>
 
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="password" name="password" autocomplete="new-password" required="" class="form-control" placeholder="Придумайте пароль *">
+                          <input type="password" name="password" autocomplete="new-password" required="" class="form-control" placeholder="Повторите пароль *" v-model="repeatPassDivision">
                         </div>
                       </div>
                     </div>
@@ -92,44 +87,42 @@
                     <div class="row">
                       <div class="col-auto ml-auto col-xs-12">
                         <div class="form-group">
-                          <button data-eid="register" type="submit" class="btn btn-lg btn-primary btn-login">Зарегистрироваться</button>
+                          <button data-eid="register" type="submit" class="btn btn-lg btn-primary btn-login" @click.prevent="regDivision">Зарегистрироваться</button>
                         </div>
                       </div>
                     </div>
                   </form>
                 </div>
+
                 <!-- ФОРМА ДЛЯ ПАРТНЕРА -->
                 <div class="tab-pane" v-show="visiblePartner">
                   <form>
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <input type="text"  class="form-control" placeholder="Название *">
+                          <input type="text"  class="form-control" placeholder="Название *" v-model="namePartner">
                         </div>
                         <div class="form-group">
-                          <input type="email" name="email" class="form-control" value="" required="" autofocus="" placeholder="E-MAIL *">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <input type="text" name="rf_mobile"  class="form-control" placeholder="Телефон *" inputmode="text">
+                          <input type="email" name="email" class="form-control"  required="" autofocus="" placeholder="E-MAIL *" v-model="emailPartner">
                         </div>
                       </div>
+
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="text" name=""  class="form-control" placeholder="Тип партнераства *" inputmode="text">
+                          <input type="password" name="password" autocomplete="new-password" required="" class="form-control" placeholder="Придумайте пароль *" v-model="passPartner">
                         </div>
                       </div>
+
                       <div class="col-md-6">
                         <div class="form-group">
-                          <input type="password" name="password" autocomplete="new-password" required="" class="form-control" placeholder="Придумайте пароль *">
+                          <input type="password" name="password" autocomplete="new-password" required="" class="form-control" placeholder="Повторите пароль *" v-model="repeatPassPartner">
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-auto ml-auto col-xs-12">
                         <div class="form-group">
-                          <button data-eid="register" type="submit" class="btn btn-lg btn-primary btn-login">Зарегистрироваться</button>
+                          <button data-eid="register" class="btn btn-lg btn-primary btn-login" @click.prevent="regPartner">Зарегистрироваться</button>
                         </div>
                       </div>
                     </div>
@@ -158,9 +151,23 @@
 </template>
 
 <script>
+ import axios from "axios";
+ import router from "@/router";
+
  export default {
    data(){
      return{
+       namePartner: '',
+       emailPartner: '',
+       passPartner: '',
+       repeatPassPartner: '',
+
+       nameDivision: '',
+       emailDivision: '',
+       passDivision: '',
+       repeatPassDivision: '',
+
+
        visibleDivision: true,
        visiblePartner: false,
        partnerActive: false,
@@ -168,6 +175,24 @@
      }
    },
    methods:{
+     regDivision(){
+       axios.post('http://93.100.110.70:8080/university/register',{
+           "division_full_name": `${this.nameDivision}`,
+           "login": `${this.emailDivision}`,
+           "password": `${this.passDivision}`,
+       })
+       router.push('/')
+     },
+
+     regPartner() {
+       axios.post('http://93.100.110.70:8080/partners/register',{
+         "partner_full_name": `${this.namePartner}`,
+         "login": `${this.emailPartner}`,
+         "password": `${this.passPartner}`,
+       })
+       router.push('/')
+     },
+
      openPartnerWindow(){
        this.visibleDivision = false
        this.visiblePartner = true
