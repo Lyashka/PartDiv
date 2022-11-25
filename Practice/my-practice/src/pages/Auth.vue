@@ -181,7 +181,9 @@ export default {
         console.log(res)
           if(res.status === 200) {
             router.push('/menu')
-            localStorage.setItem('profileNavigation', 'Division')
+            localStorage.setItem('tagProfile', 'Division')
+            this.$store.state.userData = res.data
+            localStorage.setItem('userData', JSON.stringify(this.$store.state.userData))
           }
       })
     },
@@ -196,7 +198,7 @@ export default {
         console.log(res)
         if(res.status === 200) {
           router.push('/menu')
-          localStorage.setItem('profileNavigation', 'Partner')
+          localStorage.setItem('tagProfile', 'Partner')
         }
       })
     },

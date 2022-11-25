@@ -38,16 +38,19 @@
 
   <div class="content wdth">
     <div class="cont1">
-      <div class="cont1_itm">Информационнные системмы и технологии</div>
+      <div class="cont1_itm">{{divisionData.divisionFullName}}</div>
 <!--      ИССИТ-->
       <input class="cont1_itm short input_hide" v-model="short_name" onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';">
     </div>
     <div style="display: flex; flex-direction: row;">Факультет:
-      <div style="margin-left: 10px;">Компьютерные технологии информатики</div>
+      <div style="margin-left: 10px;">{{divisionFaculty}}</div>
       <button class="change">Изменить</button>
     </div>
     <div style="display: flex; flex-direction: row;">Направления разработок:
-      <div style="margin-left: 10px;">Игры, Боты, и т.д.</div>
+      <div v-for="dev of divisionOfDev">
+        <div style="margin-left: 10px;">{{dev}}</div>
+      </div>
+
       <button class="change">Изменить</button>
     </div>
   </div>
@@ -80,14 +83,21 @@
     </div>
   </div>
 
-  <div class="save"><button class="save_btn">Сохранить</button></div>
+  <div class="save"><button class="save_btn" @click="persist">Сохранить</button></div>
 </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default{
   data() {
     return{
+      divisionId: '',
+      divisionData: '',
+      divisionFaculty: '',
+      divisionOfDev: [],
+
       short_name:'',
       mail: '',
       phone: 0,
@@ -97,15 +107,7 @@ export default{
       contacts:'',
     }
   },
-  mounted() {
-    if (localStorage.mail) {this.mail = localStorage.mail;}
-    if (localStorage.phone) {this.phone = localStorage.phone;}
-    if (localStorage.short_name) {this.short_name = localStorage.short_name;}
-    if (localStorage.address) {this.address = localStorage.address;}
-    if (localStorage.website) {this.website = localStorage.website;}
-    if (localStorage.boss) {this.boss = localStorage.boss;}
-    if (localStorage.contacts) {this.contacts = localStorage.contacts;}
-  },
+
   methods: {
     persist() {
       localStorage.mail = this.mail;
@@ -115,8 +117,52 @@ export default{
       localStorage.website = this.website;
       localStorage.boss = this.boss;
       localStorage.contacts = this.contacts;
+    },
+
+    requestDivisionData() {
+      axios.get('http://93.100.110.70:8080/university/getone',{
+        params: {
+          division_id: this.divisionId
+        }
+      }).then(res => {
+        console.log(res.data)
+
+        console.log(typeof (this.divisionData))
+        this.divisionData = res.data
+        localStorage.setItem('divisionData', JSON.stringify(this.divisionData))
+        this.divisionFaculty = res.data.faculty.facultyName
+        this.phone = this.divisionData.phone
+        this.mail = this.divisionData.email
+        this.website = this.divisionData.website
+        this.boss = this.divisionData.headFacultyName
+
+        this.divisionData.directionsOfDev.forEach(e => {
+          this.divisionOfDev.push(e.directionName)
+          console.log(this.divisionOfDev)
+        })
+
+      })
     }
-  }
+  },
+
+  mounted() {
+    this.divisionId = localStorage.getItem('division_id')
+    console.log(this.divisionId)
+    this.requestDivisionData()
+    this.divisionData = JSON.parse(localStorage.getItem('divisionData'))
+    console.log(this.divisionData)
+
+    if (localStorage.mail) {this.mail = localStorage.mail;}
+    if (localStorage.phone) {this.phone = localStorage.phone;}
+    if (localStorage.short_name) {this.short_name = localStorage.short_name;}
+    if (localStorage.address) {this.address = localStorage.address;}
+    if (localStorage.website) {this.website = localStorage.website;}
+    if (localStorage.boss) {this.boss = localStorage.boss;}
+    if (localStorage.contacts) {this.contacts = localStorage.contacts;}
+  },
+
+
+
 }
 </script>
 

@@ -1,25 +1,25 @@
 <template>
-  
 
-    <!-- Соглашения -->
-    <Agreement v-show="visibleAgreement"  :class="{content_marg: MargCont}">
 
-    </Agreement>
+  <!-- Соглашения -->
+  <Agreement v-show="visibleAgreement" :class="{content_marg: MargCont}">
 
-    <!-- Структуры -->
-    <Structure v-show="visibleStructure"  :class="{content_marg: MargCont}">
+  </Agreement>
 
-    </Structure>
+  <!-- Структуры -->
+  <Structure v-show="visibleStructure" :class="{content_marg: MargCont}">
 
-    <!-- Взаимодейств -->
-    <Interactions v-show="visibleInteractions" :class="{content_marg: MargCont}">
+  </Structure>
 
-    </Interactions>
+  <!-- Взаимодейств -->
+  <Interactions v-show="visibleInteractions" :class="{content_marg: MargCont}">
 
-    <!-- Мероприятия -->
-    <Events v-show="visibleEvents" :class="{content_marg: MargCont}">
+  </Interactions>
 
-    </Events>
+  <!-- Мероприятия -->
+  <Events v-show="visibleEvents" :class="{content_marg: MargCont}">
+
+  </Events>
 
   <div class="head" id="header">
     <div class="container">
@@ -28,7 +28,8 @@
           <button class="menu"><a class="side">☰</a></button>
         </div>
         <div>
-          <svg x="0px" y="0px" viewBox="0 0 69.8 70" class="head-image" style="enable-background:new 0 0 69.8 70; fill:#fff;" xml:space="preserve">
+          <svg x="0px" y="0px" viewBox="0 0 69.8 70" class="head-image"
+               style="enable-background:new 0 0 69.8 70; fill:#fff;" xml:space="preserve">
             <!--<style type="text/css">-->
             <!--	.st0{fill:;}-->
             <!--</style>-->
@@ -62,22 +63,22 @@
 
       <ul>
         <div @click="openProfMenu">
-          <button class="prof"><img src="@/components/assets/img.png" style="width: 45px; filter:invert();" alt="" >
+          <button class="prof"><img src="@/components/assets/img.png" style="width: 45px; filter:invert();" alt="">
           </button>
-        </div >
+        </div>
         <div class="prof_menu" v-show="visibleProfMenu">
           <div class="dwn-itm">Большаков Алексей Алексеевич</div>
           <div class="dwn-itm ml">Leha-bolshakov02@mail.ru</div>
-          <button class="dwn-itm prf" @click="$router.push('/profilePartner')">Akk</button>
-          <button class="dwn-itm prf" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;" @click="$router.push('/')">Выйти
+          <button class="dwn-itm prf" @click="$router.push(profileTag)">Akk</button>
+          <button class="dwn-itm prf" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;"
+                  @click="$router.push('/')">Выйти
           </button>
         </div>
       </ul>
 
-
     </div>
   </div>
-  <div class="sidedrawer" :class="{ani_hidde: AniHidde,ani_show: AniShow}" >
+  <div class="sidedrawer" :class="{ani_hidde: AniHidde,ani_show: AniShow}">
     <ul style="display:inline;">
       <li>
         <button class="bt" @click="openAgreement">Соглашения</button>
@@ -110,14 +111,17 @@ export default {
   },
   data() {
     return {
+      userData: {},
+      profileTag: '',
+
       visibleAgreement: true,
       visibleStructure: false,
       visibleInteractions: false,
       visibleEvents: false,
       visibleProfMenu: false,
       MargCont: false,
-      AniHidde:false,
-      AniShow:true,
+      AniHidde: false,
+      AniShow: true,
     }
   },
   methods: {
@@ -156,13 +160,26 @@ export default {
         this.AniShow = true
       }
     },
-    openProfMenu(){
-      if(this.visibleProfMenu === false){
+    openProfMenu() {
+      if (this.visibleProfMenu === false) {
         this.visibleProfMenu = true
-      }else {
+      } else {
         this.visibleProfMenu = false
       }
     }
+  },
+
+  mounted() {
+    if (localStorage.getItem('tagProfile') === 'Division') {
+      this.profileTag = '/profileDivision'
+    } else {
+      this.profileTag = '/profilePartner'
+    }
+
+
+    this.userData = JSON.parse(localStorage.getItem('userData'))
+    localStorage.setItem('division_id', this.userData.universityDivision.divisionID)
+    console.log(this.userData)
   }
 }
 </script>
@@ -188,7 +205,8 @@ div {
 ul {
   margin: 0;
 }
-button{
+
+button {
   cursor: pointer;
 }
 
@@ -227,9 +245,9 @@ header,
   justify-content: space-between;
 }
 
-.content_marg{
-  margin-left: 0px!important;
-  width: 100%!important;
+.content_marg {
+  margin-left: 0px !important;
+  width: 100% !important;
 }
 
 .menu {
@@ -260,25 +278,35 @@ header,
   margin-top: 60px;
 
 }
-.ani_show{
+
+.ani_show {
   display: inline;
   transform: translateX(-150%);
   animation: ani2 0.3s forwards;
 }
 
-.ani_hidde{
+.ani_hidde {
   transform: translateX(-150%);
   /*display: none;*/
   animation: aniHid 0.4s forwards;
 }
 
 @keyframes aniHid {
-  0% {transform: translateX(0%);}
-  100% {transform: translateX(-150%);}
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
 }
+
 @keyframes ani2 {
-  0% {transform: translateX(-150%);}
-  100% {transform: translateX(0);}
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .prof {
