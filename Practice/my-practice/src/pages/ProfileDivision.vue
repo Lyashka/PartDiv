@@ -38,27 +38,36 @@
 
   <div class="content wdth">
     <div class="cont1">
-      <div class="cont1_itm">{{divisionData.divisionFullName}}</div>
-<!--      ИССИТ-->
-      <input class="cont1_itm short input_hide" v-model="short_name" onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';">
+        <input class="cont1_itm input_hide" v-model="name" style=" width: 100%;" >
     </div>
-    <div style="display: flex; flex-direction: row;">Факультет:
-      <div style="margin-left: 10px;">{{divisionFaculty}}</div>
-      <button class="change">Изменить</button>
+      <input class="short input_hide" v-model="short_name"  placeholder='"Короткое название:"'>
+    <div class="itm">Факультет:
+      <div style="margin-left: 10px;">{{divisionFaculty}}
+        <select v-model="selected" v-show="ShowSelect" class="selection">
+          <option disabled value="">Выберите вариант:</option>
+          <option>A</option>
+        </select>
+       </div>
+      <button class="change" @click="OpenSelect">Изменить</button>
     </div>
-    <div style="display: flex; flex-direction: row;">Направления разработок:
-      <div v-for="dev of divisionOfDev">
+    <div class="itm" style="flex-wrap: wrap;">Направления разработок:
+      <div v-for="dev of divisionOfDev" class="itm DoD">
         <div style="margin-left: 10px;">{{dev}}</div>
+        <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>
       </div>
 
-      <button class="change">Изменить</button>
+<!--      <select v-model="selected" class="selection" style="margin-left: 5px">-->
+<!--        <option disabled value="">Выберите вариант:</option>-->
+<!--        <option>A</option>-->
+<!--      </select>-->
+      <button class="agree_bt hv" style="width: 30px; height: 30px">+</button>
     </div>
   </div>
 
   <div class="content wdth">
     <div class="cont1">Контакты</div>
     <div class="flex_rovv wdth">
-      <div class="cont2" style="padding-right: 50px;">
+      <div class="cont2 pd-50">
         <div style="font-size: 20px;">Почта зав. кафедрой</div>
         <input type="email" placeholder="Mail" class="input" v-model="mail">
       </div>
@@ -97,7 +106,7 @@ export default{
       divisionData: '',
       divisionFaculty: '',
       divisionOfDev: [],
-
+      name: '',
       short_name:'',
       mail: '',
       phone: 0,
@@ -105,6 +114,7 @@ export default{
       website: '',
       boss:'',
       contacts:'',
+      ShowSelect: false,
     }
   },
 
@@ -112,11 +122,18 @@ export default{
     persist() {
       localStorage.mail = this.mail;
       localStorage.short_name = this.short_name;
+      localStorage.name = this.name;
       localStorage.phone = this.phone;
       localStorage.address = this.address;
       localStorage.website = this.website;
       localStorage.boss = this.boss;
       localStorage.contacts = this.contacts;
+    },
+    OpenSelect(){
+      if(this.ShowSelect == false){
+        this.ShowSelect = true
+
+      }
     },
 
     requestDivisionData() {
@@ -133,6 +150,7 @@ export default{
         this.divisionFaculty = res.data.faculty.facultyName
         this.phone = this.divisionData.phone
         this.mail = this.divisionData.email
+        this.name = this.divisionData.divisionFullName
         this.website = this.divisionData.website
         this.boss = this.divisionData.headFacultyName
 
@@ -155,13 +173,12 @@ export default{
     if (localStorage.mail) {this.mail = localStorage.mail;}
     if (localStorage.phone) {this.phone = localStorage.phone;}
     if (localStorage.short_name) {this.short_name = localStorage.short_name;}
+    if (localStorage.name) {this.name = localStorage.name;}
     if (localStorage.address) {this.address = localStorage.address;}
     if (localStorage.website) {this.website = localStorage.website;}
     if (localStorage.boss) {this.boss = localStorage.boss;}
     if (localStorage.contacts) {this.contacts = localStorage.contacts;}
   },
-
-
 
 }
 </script>
@@ -240,13 +257,30 @@ ul{
 .cont1{
   display: flex;
   font-size: 25px;
-  margin-bottom: 12px;
 }
 
 .cont2{
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.itm{
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+
+.DoD{
+  padding: 0;
+  height: 32px;
+  margin-left: 5px;
+  border:1px rgba(0, 0, 0, 0.103) solid;
+  border-radius: 20px;
+}
+
+.pd-50{
+  padding-right: 50px;
 }
 
 .cont1_itm{
@@ -261,6 +295,9 @@ ul{
   display: flex;
   flex-direction: row;
 }
+
+@media (max-width: 700px){.flex_rovv {flex-direction:column;}}
+@media (max-width: 700px){.pd-50 {padding-right:0;}}
 
 .change{
   margin-left: 20px;
@@ -278,8 +315,10 @@ ul{
   border: none;
   background: inherit;
   font-size: 22px;
-  height: 40px;
+  height: 30px;
+  margin-bottom: 10px;
   min-width: 100px;
+  cursor: pointer;
 }
 
 .input_hide:focus{
@@ -294,6 +333,15 @@ ul{
   border:1px #004497 solid;
   transition: all 0.2s linear;
   animation-direction: normal, reverse;
+  cursor: text;
+}
+
+.selection{
+  font-size: 18px;
+  border-radius: 10px;
+  border:1px rgba(0, 0, 0, 0.103) solid;
+  padding-left: 10px;
+  background-color:rgba(255, 255, 255, 0.801);
 }
 
 .input{
@@ -307,7 +355,7 @@ ul{
   background-color:rgba(255, 255, 255, 0.801);
 }
 
-.input:focus{
+.input:focus, .selection:focus{
   box-shadow:0 0 0 2.5px #0368e448;
   border:1px #004497 solid;
   transition: all 0.2s linear;

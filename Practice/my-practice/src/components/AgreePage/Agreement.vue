@@ -2,6 +2,7 @@
   <!-- Соглашения -->
   <div class="content">
     <div class="table">
+      <div class=" agr_widt"><button class="add" @click="openFormAddAgreement">Создать Соглашение</button> </div>
       <div>
         <div class="deal">
           <button class="num fnt hv" style="padding-left: 12px;padding-right: 6px;">№</button>
@@ -262,7 +263,8 @@ header,
   display: flex;
   flex-direction: column;
   z-index: 0;
-  margin-left:20px;
+  margin-left:auto;
+  margin-right: auto;
   margin-top: 20px;
   width: 70%;
   min-height: 80%;
@@ -272,7 +274,7 @@ header,
 }
 
 .agreement{
-  display: flex;
+  display: none;
   margin-left: 20px;
   margin-right: 20px;
   width: 50%;
@@ -320,7 +322,7 @@ header,
 
 .agr_widt{
   width: auto;
-  margin-left: 10px;
+  margin-left: 20px;
   margin-right: 10px;
 }
 
@@ -404,7 +406,7 @@ header,
 
 .status{
   font-size: 20px;
-  width: 90px;
+  width: 130px;
   text-align: left;
   padding-left: 6px;
   padding-right: 6px;
@@ -430,6 +432,7 @@ header,
   background-color:inherit;
   border:none;
   height: 60px;
+  padding-right: 6px;
 }
 
 .bt_deal{

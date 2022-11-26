@@ -1,6 +1,9 @@
 <template>
   <div class="content">
     <div class="table">
+      <div class=" agr_widt">
+        <button class="add" @click="openFormAddInteractions">Создать Взаимодействие</button>
+      </div>
       <div>
         <div class="deal" style="height: 60px;">
           <button class="kind fnt hv" style="padding-left: 6px;">Вид взаимодействия</button>

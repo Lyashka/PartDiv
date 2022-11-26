@@ -2,6 +2,9 @@
 
   <div class="content" :class="{marg: margSide}">
     <div class="table">
+      <div class=" agr_widt">
+        <button class="add" @click="openFormAddStructure">Создать Структуру</button>
+      </div>
       <div>
         <div class="deal" style="height: 60px;">
           <button class="kind fnt hv" style="padding-left: 6px;">Вид структуры</button>

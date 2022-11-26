@@ -1,9 +1,10 @@
 <template>
   <div class="content">
     <div class="table">
+      <div class=" agr_widt"><button class="add" @click="openFormAddEvents">Создать Мероприятие</button> </div>
       <div>
         <div class="deal" style="height: 60px;">
-          <button class="kind fnt hv" style="padding-left: 12px;">Название</button>
+          <button class="kind fnt hv" style="padding-left: 6px;">Название</button>
           <button class="name fnt hv">Тип</button>
           <button class="short_name fnt hv">Результат</button>
           <button class="data fnt hv">Дата</button>
