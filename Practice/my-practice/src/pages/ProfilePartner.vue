@@ -40,18 +40,28 @@
 
     <div class="content wdth">
       <div class="cont1">
-        <div class="cont1_itm">{{full_name}}</div>
-        <input class="cont1_itm short input_hide" v-model="short_name" onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';">
+
+        <input class="cont1_itm input_hide" v-model="full_name" style=" width: 100%;" >
       </div>
-      <div style="display: flex; flex-direction: row;">Тип партнера:
-        <div style="margin-left: 10px;">Половой</div>
-        <button class="change">Изменить</button>
+      <input class=" short input_hide" v-model="short_name"  placeholder='"Короткое название:"'>
+      <div class="itm">Тип партнера:
+        <div style="margin-left: 10px;">Половой
+          <select v-model="selected" v-show="ShowSelect" class="selection">
+            <option disabled value="">Выберите вариант:</option>
+            <option>A</option>
+          </select>
+        </div>
+        <button class="change" @click="OpenSelect">Изменить</button>
       </div>
-      <div style="display: flex; flex-direction: row;">Направления разработок:
+      <div class="itm">Направления разработок:
         <div v-for="dev of partnerOfDev" class="itm DoD">
           <div style="margin-left: 10px;">{{dev}}</div>
           <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>
         </div>
+        <!--      <select v-model="selected" class="selection" style="margin-left: 5px">-->
+        <!--        <option disabled value="">Выберите вариант:</option>-->
+        <!--        <option>A</option>-->
+        <!--      </select>-->
         <button class="agree_bt hv" style="width: 30px; height: 30px">+</button>
       </div>
     </div>
@@ -119,6 +129,7 @@ export default{
     contacts:'',
     partnerOfDev: [],
     partnerData: {},
+    ShowSelect: false,
   }
   },
 
@@ -153,7 +164,13 @@ export default{
       localStorage.website = this.website;
       localStorage.boss = this.boss;
       localStorage.contacts = this.contacts;
-    }
+    },
+    OpenSelect(){
+      if(this.ShowSelect == false){
+        this.ShowSelect = true
+
+      }
+    },
   },
 
   mounted() {
@@ -244,13 +261,30 @@ ul{
 .cont1{
   display: flex;
   font-size: 25px;
-  margin-bottom: 12px;
 }
 
 .cont2{
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.itm{
+  display: flex;
+  flex-direction: row;
+  align-items: center
+}
+
+.DoD{
+  padding: 0;
+  height: 32px;
+  margin-left: 5px;
+  border:1px rgba(0, 0, 0, 0.103) solid;
+  border-radius: 20px;
+}
+
+.pd-50{
+  padding-right: 50px;
 }
 
 .cont1_itm{
@@ -265,6 +299,9 @@ ul{
   display: flex;
   flex-direction: row;
 }
+
+@media (max-width: 700px){.flex_rovv {flex-direction:column;}}
+@media (max-width: 700px){.pd-50 {padding-right:0;}}
 
 .change{
   margin-left: 20px;
@@ -282,8 +319,10 @@ ul{
   border: none;
   background: inherit;
   font-size: 22px;
-  height: 40px;
+  height: 30px;
+  margin-bottom: 10px;
   min-width: 100px;
+  cursor: pointer;
 }
 
 .input_hide:focus{
@@ -298,6 +337,15 @@ ul{
   border:1px #004497 solid;
   transition: all 0.2s linear;
   animation-direction: normal, reverse;
+  cursor: text;
+}
+
+.selection{
+  font-size: 18px;
+  border-radius: 10px;
+  border:1px rgba(0, 0, 0, 0.103) solid;
+  padding-left: 10px;
+  background-color:rgba(255, 255, 255, 0.801);
 }
 
 .input{
@@ -311,7 +359,7 @@ ul{
   background-color:rgba(255, 255, 255, 0.801);
 }
 
-.input:focus{
+.input:focus, .selection:focus{
   box-shadow:0 0 0 2.5px #0368e448;
   border:1px #004497 solid;
   transition: all 0.2s linear;
