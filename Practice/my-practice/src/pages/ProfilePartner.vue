@@ -45,7 +45,7 @@
       </div>
       <input class=" short input_hide" v-model="short_name"  placeholder='"Короткое название:"'>
       <div class="itm">Тип партнера:
-        <div style="margin-left: 10px;">Половой
+        <div style="margin-left: 10px;">{{typePartner}}
           <select v-model="selected" v-show="ShowSelect" class="selection">
             <option disabled value="">Выберите вариант:</option>
             <option>A</option>
@@ -55,7 +55,7 @@
       </div>
       <div class="itm">Направления разработок:
         <div v-for="dev of partnerOfDev" class="itm DoD">
-          <div style="margin-left: 10px;">{{dev}}</div>
+          <div style="margin-left: 10px;">{{dev.directionName}}</div>
           <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>
         </div>
         <!--      <select v-model="selected" class="selection" style="margin-left: 5px">-->
@@ -127,8 +127,9 @@ export default{
     website: '',
     boss:'',
     contacts:'',
+    typePartner: '',
     partnerOfDev: [],
-    partnerData: {},
+    partnerData: '',
     ShowSelect: false,
   }
   },
@@ -149,9 +150,10 @@ export default{
         this.address = res.data.address
         this.website = res.data.website
         this.boss = res.data.director
+        this.typePartner = res.data.partnerType.typeName
 
         this.partnerData.directionsOfDev.forEach(e => {
-          this.partnerOfDev.push(e.directionName)
+          this.partnerOfDev.push(e)
         })
       })
     },
@@ -164,9 +166,33 @@ export default{
       localStorage.website = this.website;
       localStorage.boss = this.boss;
       localStorage.contacts = this.contacts;
+      localStorage.full_name = this.full_name
+      localStorage.typePartner = this.typePartner
+      localStorage.partnerOfDev = this.partnerOfDev
+
+      this.partnerData.email = localStorage.mail
+      this.partnerData.shortName = localStorage.short_name
+      this.partnerData.phone = localStorage.phone
+      this.partnerData.address = localStorage.address
+      this.partnerData.website = localStorage.website
+      this.partnerData.director = localStorage.boss
+      this.partnerData.fullName = localStorage.full_name
+      this.partnerData.shortName = localStorage.short_name
+      this.partnerData.partnerType.typeName = localStorage.typePartner
+
+      // Вся работа производится с this.partnerOfDev теперь
+      // this.partnerOfDev.forEach(e => {
+      //   this.partnerData.directionsOfDev.push(e)
+      // })
+
+
+
+      console.log(this.partnerData)
+      axios.post('http://93.100.110.70:8080/partners/updatePartner',this.partnerData)
     },
+
     OpenSelect(){
-      if(this.ShowSelect == false){
+      if(this.ShowSelect === false){
         this.ShowSelect = true
 
       }

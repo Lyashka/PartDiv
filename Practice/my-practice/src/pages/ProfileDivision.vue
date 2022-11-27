@@ -128,6 +128,18 @@ export default{
       localStorage.website = this.website;
       localStorage.boss = this.boss;
       localStorage.contacts = this.contacts;
+      localStorage.divisionFaculty = this.divisionFaculty
+
+
+      this.divisionData.email = localStorage.mail
+      this.divisionData.shortName = localStorage.short_name
+      this.divisionData.phone = localStorage.phone
+      this.divisionData.address = localStorage.address
+      this.divisionData.website = localStorage.website
+      this.divisionData.headFacultyName = localStorage.boss
+      this.divisionData.divisionFaculty =  localStorage.divisionFaculty
+      console.log(this.divisionData)
+      axios.post('http://93.100.110.70:8080/university/update',this.divisionData)
     },
     OpenSelect(){
       if(this.ShowSelect == false){
