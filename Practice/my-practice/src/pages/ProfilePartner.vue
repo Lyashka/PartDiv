@@ -40,7 +40,7 @@
 
     <div class="content wdth">
       <div class="cont1">
-        <div class="cont1_itm">Российская Буровая Компания</div>
+        <div class="cont1_itm">{{full_name}}</div>
         <input class="cont1_itm short input_hide" v-model="short_name" onkeydown="this.style.width = ((this.value.length + 1) * 8) + 'px';">
       </div>
       <div style="display: flex; flex-direction: row;">Тип партнера:
@@ -48,8 +48,11 @@
         <button class="change">Изменить</button>
       </div>
       <div style="display: flex; flex-direction: row;">Направления разработок:
-        <div style="margin-left: 10px;">Игры, Боты, и т.д.</div>
-        <button class="change">Изменить</button>
+        <div v-for="dev of partnerOfDev" class="itm DoD">
+          <div style="margin-left: 10px;">{{dev}}</div>
+          <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>
+        </div>
+        <button class="agree_bt hv" style="width: 30px; height: 30px">+</button>
       </div>
     </div>
 
@@ -100,9 +103,13 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default{
   data() {
   return{
+    full_name: '',
+    partnerId: '',
     short_name:'',
     mail: '',
     phone: 0,
@@ -110,18 +117,34 @@ export default{
     website: '',
     boss:'',
     contacts:'',
+    partnerOfDev: [],
+    partnerData: {},
   }
   },
-  mounted() {
-    if (localStorage.mail) {this.mail = localStorage.mail;}
-    if (localStorage.phone) {this.phone = localStorage.phone;}
-    if (localStorage.short_name) {this.short_name = localStorage.short_name;}
-    if (localStorage.address) {this.address = localStorage.address;}
-    if (localStorage.website) {this.website = localStorage.website;}
-    if (localStorage.boss) {this.boss = localStorage.boss;}
-    if (localStorage.contacts) {this.contacts = localStorage.contacts;}
-  },
+
   methods: {
+    requestPartnerData() {
+      axios.get('http://93.100.110.70:8080/partners/getone',{
+        params: {
+          partner_id: `${this.partnerId}`
+        }
+      }).then(res => {
+        console.log(res.data)
+        this.partnerData = res.data
+        this.short_name = res.data.shortName
+        this.full_name = res.data.fullName
+        this.mail = res.data.email
+        this.phone = res.data.phone
+        this.address = res.data.address
+        this.website = res.data.website
+        this.boss = res.data.director
+
+        this.partnerData.directionsOfDev.forEach(e => {
+          this.partnerOfDev.push(e.directionName)
+        })
+      })
+    },
+
     persist() {
       localStorage.mail = this.mail;
       localStorage.short_name = this.short_name;
@@ -131,7 +154,19 @@ export default{
       localStorage.boss = this.boss;
       localStorage.contacts = this.contacts;
     }
-  }
+  },
+
+  mounted() {
+    this.partnerId = localStorage.getItem('partner_id')
+    this.requestPartnerData()
+    if (localStorage.mail) {this.mail = localStorage.mail;}
+    if (localStorage.phone) {this.phone = localStorage.phone;}
+    if (localStorage.short_name) {this.short_name = localStorage.short_name;}
+    if (localStorage.address) {this.address = localStorage.address;}
+    if (localStorage.website) {this.website = localStorage.website;}
+    if (localStorage.boss) {this.boss = localStorage.boss;}
+    if (localStorage.contacts) {this.contacts = localStorage.contacts;}
+  },
 }
 </script>
 

@@ -71,7 +71,7 @@
           <div class="dwn-itm ml">Leha-bolshakov02@mail.ru</div>
           <button class="dwn-itm prf" @click="$router.push(profileTag)">Akk</button>
           <button class="dwn-itm prf" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;"
-                  @click="$router.push('/')">Выйти
+                  @click="exit">Выйти
           </button>
         </div>
       </ul>
@@ -101,6 +101,7 @@ import Agreement from "@/components/AgreePage/Agreement.vue";
 import Structure from "@/components/StructurePage/Structure.vue"
 import Interactions from '@/components/InteractionsPage/Interactions.vue'
 import Events from '@/components/EventsPage/Events'
+import router from "@/router";
 
 export default {
   components: {
@@ -125,6 +126,11 @@ export default {
     }
   },
   methods: {
+    exit() {
+      router.push('/')
+      localStorage.clear()
+    },
+
     openAgreement() {
       this.visibleAgreement = true
       this.visibleStructure = false
@@ -178,8 +184,14 @@ export default {
 
 
     this.userData = JSON.parse(localStorage.getItem('userData'))
-    localStorage.setItem('division_id', this.userData.universityDivision.divisionID)
-    console.log(this.userData)
+    if (localStorage.getItem('tagProfile') === 'Partner') {
+      localStorage.setItem('partner_id', this.userData.partner.partnerID)
+      console.log(this.userData)
+    }else if (localStorage.getItem('tagProfile') === 'Division'){
+      localStorage.setItem('division_id', this.userData.universityDivision.divisionID)
+      console.log(this.userData)
+    }
+
   }
 }
 </script>

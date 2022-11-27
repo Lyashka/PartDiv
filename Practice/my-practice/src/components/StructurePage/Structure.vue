@@ -75,12 +75,24 @@ export default {
   },
 
   mounted() {
-    if (JSON.parse(localStorage.getItem('structureData')) === null) {
-      this.userData = this.$store.state.userData.universityDivision.jointStructures
-      localStorage.setItem('structureData', JSON.stringify(this.userData))
+    if (localStorage.getItem('tagProfile') === 'Division') {
+      if (JSON.parse(localStorage.getItem('structureData')) === null) {
+        this.userData = this.$store.state.userData.universityDivision.jointStructures
+        localStorage.setItem('structureData', JSON.stringify(this.userData))
+      } else {
+        this.userData = JSON.parse(localStorage.getItem('structureData'))
+      }
     } else {
-      this.userData = JSON.parse(localStorage.getItem('structureData'))
+      if (JSON.parse(localStorage.getItem('structureData')) === null) {
+        this.userData = this.$store.state.userData.partner.jointStructures
+        console.log('sss')
+        console.log(this.$store.state.userData)
+        localStorage.setItem('structureData', JSON.stringify(this.userData))
+      } else {
+        this.userData = JSON.parse(localStorage.getItem('structureData'))
+      }
     }
+
   }
 
 }

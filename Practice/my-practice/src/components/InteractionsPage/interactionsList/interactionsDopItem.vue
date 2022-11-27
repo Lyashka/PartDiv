@@ -10,8 +10,8 @@
             </div>
 
             <div class="dop_itm">
-              <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px; width: 150px;" v-for="item of itemInteractions.directionsOfDev">
-                {{item.directionName}}
+              <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px; width: 150px;" v-for="item of itemInteractions.directionsOfDev">Направления разработок
+                <div>{{item.directionName}}</div>
               </div>
             </div>
 

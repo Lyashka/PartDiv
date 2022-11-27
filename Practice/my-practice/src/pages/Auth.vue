@@ -199,6 +199,8 @@ export default {
         if(res.status === 200) {
           router.push('/menu')
           localStorage.setItem('tagProfile', 'Partner')
+          this.$store.state.userData = res.data
+          localStorage.setItem('userData', JSON.stringify(this.$store.state.userData))
         }
       })
     },
