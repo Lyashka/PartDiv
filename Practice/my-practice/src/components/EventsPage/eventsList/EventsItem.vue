@@ -27,6 +27,12 @@
 
 <script>
 export default {
+  props: {
+    item: {
+      item: Array
+    }
+  },
+
   data(){
     return{
       VisibleDop:false,

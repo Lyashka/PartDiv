@@ -1,74 +1,67 @@
 <template>
-<div class="deal" style="flex-direction: column;">
-  <button class="bt_deal hv" @click="ShowDop" :class="{boob: VisBord}" style="height: 50px;">
-    <div class="num">13</div>
-    <div class="type" style="padding-left: 33px;">Обоюдное</div>
-    <div class="data">11.01.11</div>
-    <div class="data">11.11.11</div>
-    <div class="status">Активен</div>
-  </button>
-  <div class="dop" v-show="VisibleDop">
-    <div class="dop_itm" style="padding-left: 12px;">
-      <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px;">Партнеры:</div>
-      <div>баребушек пипидастр хуепутоловик говномесина</div>
-      <div>rrr</div>
+  <div class="deal" style="flex-direction: column;">
+    <div class="bt_deal hv" @click="ShowDop" :class="{boob: VisBord}" style="height: 50px;">
+      <div class="num">{{ item.agreementNumber }}</div>
+      <div class="type" style="padding-left: 33px;">{{ item.agreementType.typeName }}</div>
+      <div class="data">{{ item.agreementDateFrom }}</div>
+      <div class="data">{{ item.agreementDateTo }}</div>
+      <div class="status">{{ status }}</div>
     </div>
-    <div class="dop_itm">
-      <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px;">Контакты партнеров:</div>
-      <div>123</div>
-      <div>123</div>
-    </div>
-    <div class="dop_itm">
-      <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px;">Подразделения:</div>
-      <div>rrr</div>
-      <div>rrr</div>
-    </div>
-    <div class="dop_itm">
-      <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px;">Контакты подразделений:</div>
-      <div>123</div>
-      <div>123</div>
-    </div>
-    <div class="dop_itm" >
-      <div style="padding-bottom: 6px; font-weight: 600; font-size: 15px;">Статус:</div>
-      <div>
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Активен
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option2">Завершен
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios4" value="option2">Продлен
-        </label>
-      </div>
-    </div>
+    <AgreeAdditionalItemDop class="dop" v-show="VisibleDop" :item="item" @newStatusItem="$emit('newStatusItem', item)">
+
+    </AgreeAdditionalItemDop>
   </div>
-</div>
 </template>
 
 <script>
+import axios from "axios";
+import AgreeAdditionalItemDop from "@/components/AgreePage/agreementList/AgreeAdditionalItemDop";
 export default {
-  data(){
-    return{
-      VisibleDop:false,
-      VisBord:false
+  components:{
+    AgreeAdditionalItemDop
+  },
+
+  props: {
+    item: {
+      item: Array
+    }
+  },
+  data() {
+    return {
+      status: '',
+      VisibleDop: false,
+      VisBord: false
     }
   },
 
-  methods:{
-    ShowDop(){
-      if(this.VisibleDop == false){
+  methods: {
+
+    ShowDop() {
+      if (this.VisibleDop === false) {
         this.VisibleDop = true
         this.VisBord = true
-      }else {
+      } else {
         this.VisibleDop = false
         this.VisBord = false
       }
     }
+  },
+
+  mounted() {
+
+    // this.status = this.item.agreementStatus.statusName
+    // if(this.item.agreementStatus.statusID === 1){
+    //   this.status = this.item.agreementStatus.statusName
+    //   console.log('yah')
+    // }else if(this.item.agreementStatus.statusID === 2){
+    //   this.status = this.item.agreementStatus.statusName
+    // }else if(this.item.agreementStatus.statusID === 3){
+    //   this.status = this.item.agreementStatus.statusName
+    // }
+
+    axios.get('http://93.100.110.70:8080/references/agreementStatuses').then(res => {
+      console.log(res)
+    })
   }
 }
 </script>

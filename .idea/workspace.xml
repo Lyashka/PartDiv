@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="42864763-01bb-48fe-88ef-488d945ce998" name="Changes" comment="update profiles v1.1">
+      <change afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/agreementList/AgreeAdditionalItemDop.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Practice.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/my-practice/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/Agreement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/Agreement.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/agreementList/AgreeAdditionalItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/agreementList/AgreeAdditionalItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/Events.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/Events.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/eventsList/EventsItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/eventsList/EventsItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/pages/MainMenu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/pages/MainMenu.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2HnLhIFaQR4syJ8YktTp5OnqzXM" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;module&quot;,
+      &quot;directory&quot;
+    ],
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Practice" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Practice" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="42864763-01bb-48fe-88ef-488d945ce998" name="Changes" comment="" />
+      <created>1668916019472</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1668916019472</updated>
+      <workItem from="1668916020825" duration="2445000" />
+      <workItem from="1669141750798" duration="5595000" />
+      <workItem from="1669224374393" duration="7692000" />
+      <workItem from="1669275692482" duration="13294000" />
+      <workItem from="1669385082784" duration="17268000" />
+      <workItem from="1669486504164" duration="3902000" />
+      <workItem from="1669549839007" duration="14323000" />
+      <workItem from="1669743274766" duration="10814000" />
+      <workItem from="1669809388743" duration="3861000" />
+      <workItem from="1670114158619" duration="2601000" />
+      <workItem from="1670117532844" duration="3858000" />
+      <workItem from="1670281153381" duration="185000" />
+      <workItem from="1670281355976" duration="486000" />
+    </task>
+    <task id="LOCAL-00001" summary="Auth and reg">
+      <created>1669314272949</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669314272949</updated>
+    </task>
+    <task id="LOCAL-00002" summary="structures and interactions">
+      <created>1669405198091</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669405198091</updated>
+    </task>
+    <task id="LOCAL-00003" summary="profile partner">
+      <created>1669555217311</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669555217311</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update profiles v1.1">
+      <created>1669564851666</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669564851666</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Auth and reg" />
+    <MESSAGE value="structures and interactions" />
+    <MESSAGE value="profile partner" />
+    <MESSAGE value="update profiles v1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="update profiles v1.1" />
+  </component>
+</project>

@@ -102,6 +102,7 @@ import Structure from "@/components/StructurePage/Structure.vue"
 import Interactions from '@/components/InteractionsPage/Interactions.vue'
 import Events from '@/components/EventsPage/Events'
 import router from "@/router";
+import axios from "axios";
 
 export default {
   components: {
@@ -126,6 +127,7 @@ export default {
     }
   },
   methods: {
+
     exit() {
       router.push('/')
       localStorage.clear()
@@ -187,7 +189,7 @@ export default {
     if (localStorage.getItem('tagProfile') === 'Partner') {
       localStorage.setItem('partner_id', this.userData.partner.partnerID)
       console.log(this.userData)
-    }else if (localStorage.getItem('tagProfile') === 'Division'){
+    } else if (localStorage.getItem('tagProfile') === 'Division') {
       localStorage.setItem('division_id', this.userData.universityDivision.divisionID)
       console.log(this.userData)
     }

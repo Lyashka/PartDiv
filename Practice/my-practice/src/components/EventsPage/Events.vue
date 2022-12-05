@@ -11,7 +11,7 @@
         </div>
       </div>
 <!--      EventsItem-->
-      <EventsItem>
+      <EventsItem v-for="item of userData" :item="item" :key="item.id">
 
       </EventsItem>
 
@@ -53,6 +53,7 @@ export default {
   },
   data(){
     return{
+      userData: [],
       visibleFormAddEvents: false
     }
 
@@ -63,6 +64,26 @@ export default {
         this.visibleFormAddEvents = true
       }else {
         this.visibleFormAddEvents = false
+      }
+    }
+  },
+
+  mounted() {
+    if (localStorage.getItem('tagProfile') === 'Division') {
+      if (JSON.parse(localStorage.getItem('EventsData')) === null) {
+        this.userData = this.$store.state.userData.universityDivision.events
+        localStorage.setItem('EventsData', JSON.stringify(this.userData))
+      } else {
+        this.userData = JSON.parse(localStorage.getItem('EventsData'))
+      }
+    } else {
+      if (JSON.parse(localStorage.getItem('EventsData')) === null) {
+        this.userData = this.$store.state.userData.partner.events
+        console.log('sss')
+        console.log(this.$store.state.userData)
+        localStorage.setItem('EventsData', JSON.stringify(this.userData))
+      } else {
+        this.userData = JSON.parse(localStorage.getItem('EventsData'))
       }
     }
   }

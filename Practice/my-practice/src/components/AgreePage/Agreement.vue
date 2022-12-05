@@ -12,8 +12,8 @@
           <button class="status fnt hv">Статус</button>
         </div>
       </div>
-<!--   AgreeTable   -->
-      <AgreeAdditionalItem>
+<!--   AgreementList   -->
+      <AgreeAdditionalItem v-for="item of userData" :item="item" :key="item.id" @newStatusItem="updateStatusItem">
 
       </AgreeAdditionalItem>
 
@@ -47,28 +47,68 @@
 import OfferAgreeItem from '@/components/AgreePage/agreementSelect/OfferAgreeItem'
 import AgreeAdditionalItem from '@/components/AgreePage/agreementList/AgreeAdditionalItem.vue'
 import AddAgree from '@/components/AgreePage/fromAddAgreement/AddAgree'
+import axios from "axios";
 export default {
   components:{
     OfferAgreeItem,
     AgreeAdditionalItem,
     AddAgree,
-
   },
   data(){
     return{
       visibleFormAddAgree: false,
       MargCont: true,
+      userData: [],
     }
   },
 
   methods:{
+    updateStatusItem(itemUpdateStatus) {
+      // console.log(this.$store.state.userData.accountID)
+      // axios.get('http://93.100.110.70:8080/partners/agreements',{
+      //   params: {
+      //     partner_id: 2
+      //   }
+      // }).then(res => {
+      //   console.log(res)
+      // })
+
+      console.log(itemUpdateStatus)
+      this.userData.forEach(e => {
+        if (e.agreementNumber === itemUpdateStatus.agreementNumber) {
+          e.agreementStatus.statusID = itemUpdateStatus.agreementStatus.statusID
+          e.agreementStatus.statusName = itemUpdateStatus.agreementStatus.statusName
+        }
+      })
+      console.log(this.userData)
+    // как оправить данны, массив иль обект
+      axios.post('http://93.100.110.70:8080/partners/agreements/updateAgreement',  this.userData)
+    },
+
     openFormAddAgreement(){
-      if(this.visibleFormAddAgree == false){
-        this.visibleFormAddAgree = true
-      }else {
-        this.visibleFormAddAgree = false
+      this.visibleFormAddAgree = this.visibleFormAddAgree === false;
+    }
+  },
+
+  mounted() {
+    if (localStorage.getItem('tagProfile') === 'Division') {
+      if (JSON.parse(localStorage.getItem('AgreementData')) === null) {
+        this.userData = this.$store.state.userData.universityDivision.agreements
+        localStorage.setItem('AgreementData', JSON.stringify(this.userData))
+      } else {
+        this.userData = JSON.parse(localStorage.getItem('AgreementData'))
+      }
+    } else {
+      if (JSON.parse(localStorage.getItem('AgreementData')) === null) {
+        this.userData = this.$store.state.userData.partner.agreements
+        console.log('sss')
+        console.log(this.$store.state.userData)
+        localStorage.setItem('AgreementData', JSON.stringify(this.userData))
+      } else {
+        this.userData = JSON.parse(localStorage.getItem('AgreementData'))
       }
     }
+    console.log(this.userData)
   }
 
 }
