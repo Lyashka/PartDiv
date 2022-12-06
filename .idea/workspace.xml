@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="42864763-01bb-48fe-88ef-488d945ce998" name="Changes" comment="update profiles v1.1">
-      <change afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/agreementList/AgreeAdditionalItemDop.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Practice.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/my-practice/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/Agreement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/Agreement.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/agreementList/AgreeAdditionalItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/AgreePage/agreementList/AgreeAdditionalItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/Events.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/Events.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/eventsList/EventsItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/components/EventsPage/eventsList/EventsItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Practice/my-practice/src/pages/MainMenu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Practice/my-practice/src/pages/MainMenu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/.idea/Practice.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Practice/.idea/modules.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +20,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="1f2c5a11-865b-4bb6-8b95-6b22811538ae" />
+        <option name="url" value="https://github.com/Lyashka/PartDiv.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2HnLhIFaQR4syJ8YktTp5OnqzXM" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -34,24 +45,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Work/Practice/my-practice",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Facets",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.35172415",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;module&quot;,
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "module",
+      "directory"
     ],
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Practice" />
@@ -88,6 +108,11 @@
       <workItem from="1670117532844" duration="3858000" />
       <workItem from="1670281153381" duration="185000" />
       <workItem from="1670281355976" duration="486000" />
+      <workItem from="1670281867170" duration="274000" />
+      <workItem from="1670282191926" duration="174000" />
+      <workItem from="1670282435640" duration="978000" />
+      <workItem from="1670283675667" duration="234000" />
+      <workItem from="1670284580036" duration="502000" />
     </task>
     <task id="LOCAL-00001" summary="Auth and reg">
       <created>1669314272949</created>
