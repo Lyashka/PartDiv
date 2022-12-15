@@ -59,30 +59,25 @@ export default {
       visibleFormAddAgree: false,
       MargCont: true,
       userData: [],
+      user: {},
     }
   },
 
   methods:{
     updateStatusItem(itemUpdateStatus) {
-      // console.log(this.$store.state.userData.accountID)
-      // axios.get('http://93.100.110.70:8080/partners/agreements',{
-      //   params: {
-      //     partner_id: 2
-      //   }
-      // }).then(res => {
-      //   console.log(res)
-      // })
 
-      console.log(itemUpdateStatus)
       this.userData.forEach(e => {
         if (e.agreementNumber === itemUpdateStatus.agreementNumber) {
           e.agreementStatus.statusID = itemUpdateStatus.agreementStatus.statusID
           e.agreementStatus.statusName = itemUpdateStatus.agreementStatus.statusName
         }
       })
-      console.log(this.userData)
+      this.user = this.userData[0]
+      // console.log(this.userData)
     // как оправить данны, массив иль обект
-      axios.post('http://93.100.110.70:8080/partners/agreements/updateAgreement',  this.userData)
+      axios.post('http://93.100.110.70:8080/agreements/updateAgreement',  this.user).then(res => {
+        // console.log(res)
+      })
     },
 
     openFormAddAgreement(){
@@ -101,14 +96,21 @@ export default {
     } else {
       if (JSON.parse(localStorage.getItem('AgreementData')) === null) {
         this.userData = this.$store.state.userData.partner.agreements
-        console.log('sss')
-        console.log(this.$store.state.userData)
         localStorage.setItem('AgreementData', JSON.stringify(this.userData))
       } else {
         this.userData = JSON.parse(localStorage.getItem('AgreementData'))
       }
     }
-    console.log(this.userData)
+
+
+    axios.get('http://93.100.110.70:8080/partners/agreements',{
+      params: {
+        partner_id: 2
+      }
+    }).then(res => {
+      // console.log('agreements')
+      // console.log(res)
+    })
   }
 
 }

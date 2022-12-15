@@ -79,8 +79,8 @@ export default {
     } else {
       if (JSON.parse(localStorage.getItem('EventsData')) === null) {
         this.userData = this.$store.state.userData.partner.events
-        console.log('sss')
-        console.log(this.$store.state.userData)
+        // console.log('sss')
+        // console.log(this.$store.state.userData)
         localStorage.setItem('EventsData', JSON.stringify(this.userData))
       } else {
         this.userData = JSON.parse(localStorage.getItem('EventsData'))

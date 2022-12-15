@@ -178,7 +178,7 @@ export default {
           password: `${this.passValueDivison}`,
         }
       }).then(res => {
-        console.log(res)
+        // console.log(res)
           if(res.status === 200) {
             router.push('/menu')
             localStorage.setItem('tagProfile', 'Division')
@@ -195,7 +195,7 @@ export default {
           password: `${this.passValueDivison}`,
         }
       }).then(res => {
-        console.log(res)
+        // console.log(res)
         if(res.status === 200) {
           router.push('/menu')
           localStorage.setItem('tagProfile', 'Partner')

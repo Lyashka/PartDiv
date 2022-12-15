@@ -38,7 +38,7 @@
       <div class="hd2"><a href="" @click="$router.push('/menu')">Выйти</a></div>
     </div>
 
-    <div class="content wdth">
+    <div class="content wdth index1">
       <div class="cont1">
 
         <input class="cont1_itm input_hide" v-model="full_name" style=" width: 100%;" >
@@ -53,16 +53,21 @@
         </div>
         <button class="change" @click="OpenSelect">Изменить</button>
       </div>
-      <div class="itm">Направления разработок:
-        <div v-for="dev of partnerOfDev" class="itm DoD">
-          <div style="margin-left: 10px;">{{dev.directionName}}</div>
-          <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>
+      <div class="itmDev">Направления разработок:
+        <div v-for="dev of partnerOfDev" class="itm DoD zIndexMainDirectionOfDevItem">
+          <mainDirectionOfDevItem style="margin-left: 10px;" :dev="dev" :key="dev.id" @removeDirectionOfDev="removeDirectionOfDev"></mainDirectionOfDevItem>
         </div>
         <!--      <select v-model="selected" class="selection" style="margin-left: 5px">-->
         <!--        <option disabled value="">Выберите вариант:</option>-->
         <!--        <option>A</option>-->
         <!--      </select>-->
-        <button class="agree_bt hv" style="width: 30px; height: 30px">+</button>
+        <div class="plus">
+          <button class="agree_bt hv" style="width: 30px; height: 30px" @click="openWindowDirectionsOfDevBox">+</button>
+          <directionsOfDevBox v-show="showDirectionsOfDevBox" :directionOfDev="directionOfDev" @newDirectionOfDev="updateNewDirectionOfDev">
+
+          </directionsOfDevBox>
+        </div>
+
       </div>
     </div>
 
@@ -100,10 +105,10 @@
           <input type="text" placeholder="" class="input" style="margin-left: 10px; width: 75%;" v-model="boss">
         </div>
       </div>
-      <div class="cont2" style="margin-top: 15px;">
-        <div style="font-size: 20px;">Контактные лица</div>
-        <textarea class="txtari" name="" id="" cols="30" rows="10" style="resize: none;" v-model="contacts"></textarea>
-      </div>
+<!--      <div class="cont2" style="margin-top: 15px;">-->
+<!--        <div style="font-size: 20px;">Контактные лица</div>-->
+<!--        <textarea class="txtari" name="" id="" cols="30" rows="10" style="resize: none;" v-model="contacts"></textarea>-->
+<!--      </div>-->
     </div>
 
     <div class="save">
@@ -114,8 +119,13 @@
 
 <script>
 import axios from "axios";
-
+import DirectionsOfDevBox from "@/components/directionsOfDev/addDirectionOfDev/directionsOfDevBox.vue";
+import mainDirectionOfDevItem from "@/components/directionsOfDev/mainDirectionOfDevItem.vue";
 export default{
+  components: {
+    DirectionsOfDevBox,
+    mainDirectionOfDevItem
+  },
   data() {
   return{
     full_name: '',
@@ -131,17 +141,49 @@ export default{
     partnerOfDev: [],
     partnerData: '',
     ShowSelect: false,
+    showDirectionsOfDevBox: false,
+
+    directionOfDev: {},
   }
   },
 
   methods: {
+    removeDirectionOfDev(DirectionOfDev) {
+      this.partnerOfDev = []
+      this.partnerData.directionsOfDev = this.partnerData.directionsOfDev.filter(d => d.directionID !== DirectionOfDev.directionID)
+      this.partnerData.directionsOfDev.forEach(e => {
+        this.partnerOfDev.push(e)
+      })
+    },
+    updateNewDirectionOfDev(newDirectionOfDev){
+      this.partnerOfDev = []
+      this.partnerData.directionsOfDev.push(newDirectionOfDev)
+      this.partnerData.directionsOfDev = this.partnerData.directionsOfDev.filter((item, index, self) =>
+        index === self.findIndex((t) => (
+            item.directionID === t.directionID
+        )))
+      this.partnerData.directionsOfDev.forEach(e => {
+        this.partnerOfDev.push(e)
+      })
+      this.showDirectionsOfDevBox = false
+      console.log(this.partnerData.directionsOfDev)
+    },
+
+    openWindowDirectionsOfDevBox(){
+      this.showDirectionsOfDevBox = true
+      axios.get('http://93.100.110.70:8080/references/directionsOfDev').then(res => {
+        this.directionOfDev = res.data
+        console.log(this.directionOfDev)
+      })
+    },
+
     requestPartnerData() {
       axios.get('http://93.100.110.70:8080/partners/getone',{
         params: {
           partner_id: `${this.partnerId}`
         }
       }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.partnerData = res.data
         this.short_name = res.data.shortName
         this.full_name = res.data.fullName
@@ -152,6 +194,7 @@ export default{
         this.boss = res.data.director
         this.typePartner = res.data.partnerType.typeName
 
+        console.log(this.partnerData)
         this.partnerData.directionsOfDev.forEach(e => {
           this.partnerOfDev.push(e)
         })
@@ -209,6 +252,7 @@ export default{
     if (localStorage.website) {this.website = localStorage.website;}
     if (localStorage.boss) {this.boss = localStorage.boss;}
     if (localStorage.contacts) {this.contacts = localStorage.contacts;}
+    console.log(this.partnerData)
   },
 }
 </script>
@@ -228,6 +272,7 @@ body {
   line-height: 1.5;
   margin: 0;
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+
 }
 div {
   display: block;
@@ -282,6 +327,7 @@ ul{
   border-radius:5px;
   padding: 25px;
   box-shadow: 0 1rem 2rem rgba(0,0,0,.10)!important;
+  z-index: 1;
 }
 
 .cont1{
@@ -298,7 +344,14 @@ ul{
 .itm{
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: center;
+  z-index: 2;
+}
+.itmDev{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .DoD{
@@ -423,5 +476,17 @@ ul{
   margin-top: 15px;
   border-radius:10px;
   padding: 10px;
+}
+.plus{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.index1{
+  z-index: 2;
+}
+.zIndexMainDirectionOfDevItem{
+  z-index: 0;
 }
 </style>

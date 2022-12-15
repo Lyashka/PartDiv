@@ -40,6 +40,11 @@
 
         </label>
       </div>
+<!--      <select v-model="selected">-->
+<!--        <option disabled value="">Не определено</option>-->
+<!--        <option>a</option>-->
+
+<!--      </select>-->
     </div>
   </div>
 </template>
@@ -61,7 +66,7 @@ export default {
   },
   watch: {
     radioCheked(value){
-      console.log(value)
+      // console.log(value)
       if(value === '2'){
         this.item.agreementStatus.statusID = value
         this.item.agreementStatus.statusName = 'В процессе заключения'
@@ -75,8 +80,8 @@ export default {
 
       }
       // this.item.agreementStatus.statusID = value
-      console.log('radioCheked')
-      console.log(this.item)
+      // console.log('radioCheked')
+      // console.log(this.item)
       this.$emit('newStatusItem',this.item)
     }
   },

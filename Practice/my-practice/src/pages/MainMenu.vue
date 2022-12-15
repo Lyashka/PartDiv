@@ -67,8 +67,8 @@
           </button>
         </div>
         <div class="prof_menu" v-show="visibleProfMenu">
-          <div class="dwn-itm">Большаков Алексей Алексеевич</div>
-          <div class="dwn-itm ml">Leha-bolshakov02@mail.ru</div>
+          <div class="dwn-itm">{{profileMenuData.director}}</div>
+          <div class="dwn-itm ml">{{profileMenuData.email}}</div>
           <button class="dwn-itm prf" @click="$router.push(profileTag)">Akk</button>
           <button class="dwn-itm prf" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;"
                   @click="exit">Выйти
@@ -115,6 +115,8 @@ export default {
     return {
       userData: {},
       profileTag: '',
+
+      profileMenuData: {},
 
       visibleAgreement: true,
       visibleStructure: false,
@@ -184,16 +186,17 @@ export default {
       this.profileTag = '/profilePartner'
     }
 
-
     this.userData = JSON.parse(localStorage.getItem('userData'))
     if (localStorage.getItem('tagProfile') === 'Partner') {
       localStorage.setItem('partner_id', this.userData.partner.partnerID)
-      console.log(this.userData)
+      // console.log(this.userData)
     } else if (localStorage.getItem('tagProfile') === 'Division') {
       localStorage.setItem('division_id', this.userData.universityDivision.divisionID)
-      console.log(this.userData)
+      // console.log(this.userData)
     }
+    this.profileMenuData = this.userData.partner
 
+    console.log(this.$store.state.userData)
   }
 }
 </script>

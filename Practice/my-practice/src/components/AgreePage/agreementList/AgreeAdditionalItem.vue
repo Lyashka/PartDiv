@@ -59,9 +59,9 @@ export default {
     //   this.status = this.item.agreementStatus.statusName
     // }
 
-    axios.get('http://93.100.110.70:8080/references/agreementStatuses').then(res => {
-      console.log(res)
-    })
+    // axios.get('http://93.100.110.70:8080/references/agreementStatuses').then(res => {
+    //   console.log(res)
+    // })
   }
 }
 </script>

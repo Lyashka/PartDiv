@@ -40,7 +40,7 @@ export default {
   },
 
   mounted() {
-    console.log(this.itemInteractions)
+    // console.log(this.itemInteractions)
   }
 }
 </script>

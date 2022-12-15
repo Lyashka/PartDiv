@@ -138,7 +138,7 @@ export default{
       this.divisionData.website = localStorage.website
       this.divisionData.headFacultyName = localStorage.boss
       this.divisionData.divisionFaculty =  localStorage.divisionFaculty
-      console.log(this.divisionData)
+      // console.log(this.divisionData)
       axios.post('http://93.100.110.70:8080/university/update',this.divisionData)
     },
     OpenSelect(){
@@ -154,9 +154,9 @@ export default{
           division_id: this.divisionId
         }
       }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
-        console.log(typeof (this.divisionData))
+        // console.log(typeof (this.divisionData))
         this.divisionData = res.data
         localStorage.setItem('divisionData', JSON.stringify(this.divisionData))
         this.divisionFaculty = res.data.faculty.facultyName
@@ -168,7 +168,7 @@ export default{
 
         this.divisionData.directionsOfDev.forEach(e => {
           this.divisionOfDev.push(e.directionName)
-          console.log(this.divisionOfDev)
+          // console.log(this.divisionOfDev)
         })
 
       })
@@ -177,10 +177,10 @@ export default{
 
   mounted() {
     this.divisionId = localStorage.getItem('division_id')
-    console.log(this.divisionId)
+    // console.log(this.divisionId)
     this.requestDivisionData()
     this.divisionData = JSON.parse(localStorage.getItem('divisionData'))
-    console.log(this.divisionData)
+    // console.log(this.divisionData)
 
     if (localStorage.mail) {this.mail = localStorage.mail;}
     if (localStorage.phone) {this.phone = localStorage.phone;}
