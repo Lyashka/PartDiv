@@ -67,8 +67,8 @@
           </button>
         </div>
         <div class="prof_menu" v-show="visibleProfMenu">
-          <div class="dwn-itm">{{profileMenuData.director}}</div>
-          <div class="dwn-itm ml">{{profileMenuData.email}}</div>
+          <div class="dwn-itm">{{profileMenuName}}</div>
+          <div class="dwn-itm ml">{{profileMenuEmail}}</div>
           <button class="dwn-itm prf" @click="$router.push(profileTag)">Akk</button>
           <button class="dwn-itm prf" style="border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;"
                   @click="exit">Выйти
@@ -113,6 +113,9 @@ export default {
   },
   data() {
     return {
+      profileMenuName: '',
+      profileMenuEmail: '',
+
       userData: {},
       profileTag: '',
 
@@ -189,10 +192,15 @@ export default {
     this.userData = JSON.parse(localStorage.getItem('userData'))
     if (localStorage.getItem('tagProfile') === 'Partner') {
       localStorage.setItem('partner_id', this.userData.partner.partnerID)
+      this.profileMenuName = this.userData.partner.director
+      this.profileMenuEmail = this.userData.partner.email
       // console.log(this.userData)
     } else if (localStorage.getItem('tagProfile') === 'Division') {
       localStorage.setItem('division_id', this.userData.universityDivision.divisionID)
       // console.log(this.userData)
+      this.profileMenuName = this.userData.universityDivision.headFacultyName
+      this.profileMenuEmail = this.userData. universityDivision.email
+      console.log(this.profileMenuName)
     }
     this.profileMenuData = this.userData.partner
 

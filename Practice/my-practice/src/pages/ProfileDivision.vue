@@ -36,7 +36,7 @@
     <div class="hd2"><a href="" @click="$router.push('/menu')">Выйти</a></div>
   </div>
 
-  <div class="content wdth">
+  <div class="content wdth index1">
     <div class="cont1">
         <input class="cont1_itm input_hide" v-model="name" style=" width: 100%;" >
     </div>
@@ -50,21 +50,33 @@
        </div>
       <button class="change" @click="OpenSelect">Изменить</button>
     </div>
-    <div class="itm" style="flex-wrap: wrap;">Направления разработок:
-      <div v-for="dev of divisionOfDev" class="itm DoD">
-        <div style="margin-left: 10px;">{{dev}}</div>
-        <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>
+    <div class="itmDev">Направления разработок:
+      <div v-for="dev of divisionOfDev" class="itm DoD zIndexMainDirectionOfDevItem">
+        <mainDirectionOfDevItem style="margin-left: 10px;" :dev="dev" :key="dev.id" @removeDirectionOfDev="removeDirectionOfDev"></mainDirectionOfDevItem>
+      </div>
+      <!--      <select v-model="selected" class="selection" style="margin-left: 5px">-->
+      <!--        <option disabled value="">Выберите вариант:</option>-->
+      <!--        <option>A</option>-->
+      <!--      </select>-->
+      <div class="plus">
+        <button class="agree_bt hv" style="width: 30px; height: 30px" @click="openWindowDirectionsOfDevBox">+</button>
+        <directionsOfDevBox v-show="showDirectionsOfDevBox" :directionOfDev="directionOfDev" @newDirectionOfDev="updateNewDirectionOfDev">
+
+        </directionsOfDevBox>
       </div>
 
-<!--      <select v-model="selected" class="selection" style="margin-left: 5px">-->
-<!--        <option disabled value="">Выберите вариант:</option>-->
-<!--        <option>A</option>-->
-<!--      </select>-->
-      <button class="agree_bt hv" style="width: 30px; height: 30px">+</button>
     </div>
+<!--    <div class="itm" style="flex-wrap: wrap;">Направления разработок:-->
+<!--      <div v-for="dev of divisionOfDev" class="itm DoD">-->
+<!--        <div style="margin-left: 10px;">{{dev}}</div>-->
+<!--        <button class="agree_bt hv" style="width: 30px; height: 30px; margin: 0 0 0 5px">X</button>-->
+<!--      </div>-->
+
+<!--      <button class="agree_bt hv" style="width: 30px; height: 30px">+</button>-->
+<!--    </div>-->
   </div>
 
-  <div class="content wdth">
+  <div class="content wdth ">
     <div class="cont1">Контакты</div>
     <div class="flex_rovv wdth">
       <div class="cont2 pd-50">
@@ -98,8 +110,13 @@
 
 <script>
 import axios from "axios";
-
+import directionsOfDevBox from "@/components/directionsOfDev/addDirectionOfDev/directionsOfDevBox.vue";
+import mainDirectionOfDevItem from "@/components/directionsOfDev/mainDirectionOfDevItem.vue";
 export default{
+  components: {
+    directionsOfDevBox,
+    mainDirectionOfDevItem
+  },
   data() {
     return{
       divisionId: '',
@@ -115,10 +132,42 @@ export default{
       boss:'',
       contacts:'',
       ShowSelect: false,
+      showDirectionsOfDevBox: false,
+      directionOfDev: {},
     }
   },
 
   methods: {
+    removeDirectionOfDev(DirectionOfDev) {
+      this.divisionOfDev = []
+      this.divisionData.directionsOfDev =  this.divisionData.directionsOfDev.filter(d => d.directionID !== DirectionOfDev.directionID)
+      this.divisionData.directionsOfDev.forEach(e => {
+        this.divisionOfDev.push(e)
+      })
+    },
+
+    updateNewDirectionOfDev(newDirectionOfDev){
+      this.divisionOfDev = []
+      this.divisionData.directionsOfDev.push(newDirectionOfDev)
+      this.divisionData.directionsOfDev = this.divisionData.directionsOfDev.filter((item, index, self) =>
+          index === self.findIndex((t) => (
+              item.directionID === t.directionID
+          )))
+      this.divisionData.directionsOfDev.forEach(e => {
+        this.divisionOfDev.push(e)
+      })
+      this.showDirectionsOfDevBox = false
+      console.log(this.divisionData.directionsOfDev)
+    },
+
+    openWindowDirectionsOfDevBox(){
+      this.showDirectionsOfDevBox = true
+      axios.get('http://93.100.110.70:8080/references/directionsOfDev').then(res => {
+        this.directionOfDev = res.data
+        console.log(this.directionOfDev)
+      })
+    },
+
     persist() {
       localStorage.mail = this.mail;
       localStorage.short_name = this.short_name;
@@ -140,9 +189,12 @@ export default{
       this.divisionData.divisionFaculty =  localStorage.divisionFaculty
       // console.log(this.divisionData)
       axios.post('http://93.100.110.70:8080/university/update',this.divisionData)
+
+      alert('Дынные успешно ищменены')
+
     },
     OpenSelect(){
-      if(this.ShowSelect == false){
+      if(this.ShowSelect === false){
         this.ShowSelect = true
 
       }
@@ -166,10 +218,11 @@ export default{
         this.website = this.divisionData.website
         this.boss = this.divisionData.headFacultyName
 
-        this.divisionData.directionsOfDev.forEach(e => {
-          this.divisionOfDev.push(e.directionName)
-          // console.log(this.divisionOfDev)
-        })
+        // this.divisionData.directionsOfDev.forEach(e => {
+        //   this.divisionOfDev.push(e.directionName)
+          this.divisionOfDev =  this.divisionData.directionsOfDev
+          console.log(this.divisionOfDev)
+        // })
 
       })
     }
@@ -190,6 +243,7 @@ export default{
     if (localStorage.website) {this.website = localStorage.website;}
     if (localStorage.boss) {this.boss = localStorage.boss;}
     if (localStorage.contacts) {this.contacts = localStorage.contacts;}
+
   },
 
 }
@@ -264,6 +318,7 @@ ul{
   border-radius:5px;
   padding: 25px;
   box-shadow: 0 1rem 2rem rgba(0,0,0,.10)!important;
+  z-index: 1;
 }
 
 .cont1{
@@ -280,7 +335,8 @@ ul{
 .itm{
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: center;
+  z-index: 2;
 }
 
 .DoD{
@@ -405,5 +461,22 @@ ul{
   margin-top: 15px;
   border-radius:10px;
   padding: 10px;
+}
+.zIndexMainDirectionOfDevItem{
+  z-index: 0;
+}
+.itmDev{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.index1{
+  z-index: 2;
+}
+.plus{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 </style>
